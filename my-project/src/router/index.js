@@ -1,21 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/login'
-import userInfo from '@/components/userInfo'
+import showFoodInfos from '@/views/ShowFoodInfos'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/userInfo',
-      name: 'userInfo',
-      component: userInfo
+      path: '/showFoodInfos',
+      name: 'showFoodInfos',
+      component: showFoodInfos
     }
   ]
 })
