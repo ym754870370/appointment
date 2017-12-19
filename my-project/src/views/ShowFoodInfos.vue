@@ -16,7 +16,7 @@
     padding: 0px;
     width: 100%;
     .content {
-      margin-top: 60px;
+      margin-top: 40px;
       margin-bottom: 65px;
       .showFoodInfo {
         float: left;
