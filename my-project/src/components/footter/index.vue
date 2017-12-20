@@ -1,13 +1,13 @@
 <template>
     <div class="footter">
       <ul class="footter-ul">
-        <li class="footter-ul-li">
+        <li class="footter-ul-li" @click="changeRouter(1)">
           <span class="footter-ul-li-span">美食show</span>
         </li>
-        <li class="footter-ul-li">
+        <li class="footter-ul-li" @click="changeRouter(2)">
           <span class="footter-ul-li-span">搭伙饭</span>
         </li>
-        <li class="footter-ul-li">
+        <li class="footter-ul-li" @click="changeRouter(3)">
           <span class="footter-ul-li-span">个人信息</span>
         </li>
       </ul>
@@ -101,7 +101,21 @@
 
         },
         methods: {
+          changeRouter(key) {
+            switch (key) {
+              case 1:
+                this.$router.push('/ShowFoodInfos')
+                break;
+              case 2:
+                this.$router.push('/AboutFood')
+                break;
+              case 3:
+                this.$router.push('/UserInfo')
+                break;
+              default:
 
+            }
+          }
         }
     };
 </script>

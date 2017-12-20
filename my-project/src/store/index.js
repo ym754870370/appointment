@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 const vuexStore = {
 	actions,
-    mutations,
+  mutations,
 	modules: {},
 	strict: true
 }

@@ -31,7 +31,7 @@
         float: left;
         margin-left: calc(~"(100% - 180px) / 4");
         position: relative;
-        &::after {
+        &:hover::after {
           position: absolute;
           bottom: 0px;
           content: " ";

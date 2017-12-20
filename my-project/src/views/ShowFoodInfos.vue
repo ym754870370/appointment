@@ -55,7 +55,7 @@
     import showFoodInfo from '@/components/showFoodInfo/index.vue'
     import footterNav from '@/components/footter/index.vue'
     export default {
-        name: 'showFoodInfos',
+        name: 'ShowFoodInfos',
         components: {
             'header-nav': headerNav,
             'show-food-info': showFoodInfo,
