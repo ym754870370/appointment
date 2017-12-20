@@ -92,7 +92,6 @@
 
         },
         beforeMount() {
-          console.log("this.foodInfo:" , this.foodInfo)
         },
         methods: {
 

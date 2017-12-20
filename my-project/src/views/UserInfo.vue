@@ -11,6 +11,12 @@
   .userInfo {
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(0,0,0, 0.03);
     .header {
       width: 100%;
       height: 40px;
