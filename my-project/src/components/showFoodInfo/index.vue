@@ -1,19 +1,17 @@
 <template>
-  <div class="showFoodInfo">
-    <a href="#">
-      <el-card :body-style="{ padding: '0px' }">
-        <img src="./imgs/hamburger.png" class="image">
-        <div class="user-info">
-          <span class="title">{{this.foodInfo.title}}</span>
-          <div class="bottom clearfix">
-            <span class="button">
-              <img src="./imgs/hamburger.png" class="user-img">{{this.foodInfo.userName}}
-            </span>
-            <time class="time">{{this.foodInfo.time}}</time>
-          </div>
+  <div class="showFoodInfo" @click="changeRouter()">
+    <el-card :body-style="{ padding: '0px' }">
+      <img src="./imgs/hamburger.png" class="image">
+      <div class="user-info">
+        <span class="title">{{this.foodInfo.title}}</span>
+        <div class="bottom clearfix">
+          <span class="button">
+            <img src="./imgs/hamburger.png" class="user-img">{{this.foodInfo.userName}}
+          </span>
+          <time class="time">{{this.foodInfo.time}}</time>
         </div>
-      </el-card>
-    </a>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -94,7 +92,11 @@
         beforeMount() {
         },
         methods: {
-
+          changeRouter() {
+            console.log('ming');
+            console.log('item: ', this.foodInfo);
+            this.$router.push('/ShowFoodInfos/Page');
+          }
         }
     };
 </script>
