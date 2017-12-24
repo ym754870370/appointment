@@ -123,7 +123,6 @@
         beforeMount() {
         },
         methods: {
-
         }
     };
 </script>

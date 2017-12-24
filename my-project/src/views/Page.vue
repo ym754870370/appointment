@@ -1,0 +1,57 @@
+<template>
+  <div class="page-Info">
+    <div class="header">个人信息</div>
+    <footter-nav />
+  </div>
+</template>
+
+
+<style lang="less">
+  .page-Info {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(0,0,0, 0.03);
+    .header {
+      width: 100%;
+      height: 40px;
+      background-color: #49a9ee;
+      position: fixed;
+      top: 0px;
+      text-align: center;
+      line-height: 40px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bolder;
+    }
+  }
+</style>
+<script>
+    import headerNav from '@/components/header/index.vue'
+    import UserInfo from '@/components/UserInfo/index.vue'
+    import footterNav from '@/components/footter/index.vue'
+    export default {
+        name: 'Page',
+        components: {
+            'header-nav': headerNav,
+            'user-info': UserInfo,
+            'footter-nav': footterNav
+        },
+        data() {
+            return {
+            };
+        },
+        computed: {
+
+        },
+        beforeMount() {
+        },
+        methods: {
+
+        }
+    };
+</script>
