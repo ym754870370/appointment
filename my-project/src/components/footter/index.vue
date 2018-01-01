@@ -104,13 +104,13 @@
           changeRouter(key) {
             switch (key) {
               case 1:
-                this.$router.push('/ShowFoodInfos')
+                this.$router.push('/ShowFoodInfos');
                 break;
               case 2:
-                this.$router.push('/AboutFood')
+                this.$router.push('/AboutFood');
                 break;
               case 3:
-                this.$router.push('/UserInfo')
+                this.$router.push('/UserInfo');
                 break;
               default:
 
