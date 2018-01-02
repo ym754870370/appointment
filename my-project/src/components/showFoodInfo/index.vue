@@ -95,7 +95,7 @@
           changeRouter() {
             console.log('ming');
             console.log('item: ', this.foodInfo);
-            this.$router.push('/ShowFoodInfos/Page');
+            this.$router.push('/Page');
           }
         }
     };

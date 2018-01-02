@@ -1,7 +1,13 @@
 <template>
   <div class="page-Info">
-    <div class="header">个人信息</div>
-    <footter-nav />
+    <div class="header">
+      <img src="../../src/components/Page/imgs/prev.png" @click="changeRouter()">
+      查看详情
+    </div>
+    <div class="content">
+      <page-content></page-content>
+    </div>
+    <comment></comment>
   </div>
 </template>
 
@@ -27,19 +33,33 @@
       color: #fff;
       font-size: 14px;
       font-weight: bolder;
+      position: fixed;
+      top: 0px;
+      img {
+        width: 30px;
+        height: 30px;
+        float: left;
+        position: absolute;
+        left: 10px;
+        top: 5px;
+      }
+    }
+    .content {
+      margin-top: 40px;
+      margin-bottom: 70px;
     }
   }
 </style>
 <script>
     import headerNav from '@/components/header/index.vue'
-    import UserInfo from '@/components/UserInfo/index.vue'
-    import footterNav from '@/components/footter/index.vue'
+    import pageContent from '@/components/Page/index.vue'
+    import comment from '@/components/Page/comment.vue'
     export default {
         name: 'Page',
         components: {
             'header-nav': headerNav,
-            'user-info': UserInfo,
-            'footter-nav': footterNav
+            'page-content': pageContent,
+            'comment': comment,
         },
         data() {
             return {
@@ -51,7 +71,9 @@
         beforeMount() {
         },
         methods: {
-
+          changeRouter() {
+            this.$router.push('/ShowFoodInfos');
+          }
         }
     };
 </script>

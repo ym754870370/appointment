@@ -13,13 +13,6 @@ export default new Router({
       path: '/ShowFoodInfos',
       name: 'ShowFoodInfos',
       component: ShowFoodInfos,
-      children: [
-        {
-          path: 'Page',
-          name: 'Page',
-          component: Page
-        }
-      ]
     },
     {
       path: '/UserInfo',
@@ -30,6 +23,11 @@ export default new Router({
       path: '/AboutFood',
       name: 'AboutFood',
       component: AboutFood
+    },
+    {
+      path: '/Page',
+      name: 'Page',
+      component: Page
     }
   ]
 })
