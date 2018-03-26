@@ -4,6 +4,9 @@ import ShowFoodInfos from '@/views/ShowFoodInfos'
 import UserInfo from '@/views/UserInfo'
 import AboutFood from '@/views/AboutFood'
 import Page from '@/views/Page'
+import Login from '@/views/Login'
+import Register from '@/views/Register'
+import Index from '@/views/Index'
 
 Vue.use(Router)
 
@@ -28,6 +31,21 @@ export default new Router({
       path: '/Page',
       name: 'Page',
       component: Page
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register
+    },
+    {
+      path: '/',
+      name: 'Index',
+      component: Index
     }
   ]
 })

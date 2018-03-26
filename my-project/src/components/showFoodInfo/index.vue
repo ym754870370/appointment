@@ -93,8 +93,6 @@
         },
         methods: {
           changeRouter() {
-            console.log('ming');
-            console.log('item: ', this.foodInfo);
             this.$router.push('/Page');
           }
         }
