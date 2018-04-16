@@ -2,7 +2,7 @@
   <div class="login">
     <div class="login-box">
       <h1>帐号登陆</h1>
-      <el-form :model="userInfo"  :rules="userInfoRules" ref="userInfo"  label-width="70px" size="medium" class="userInfo">
+      <el-form :model="userInfo"  :rules="userInfoRules" ref="userInfo"  label-width="70px" size="medium" class="login-form">
         <el-form-item label="帐号：" prop="accounts">
           <el-input v-model="userInfo.accounts" placeholder="请填写帐号" class="login-input"></el-input>
         </el-form-item>
@@ -43,7 +43,7 @@
         color: #230e06;
         text-align: center;
       }
-      .userInfo{
+      .login-form{
         margin: 20px 20px 0 20px;
       }
       .login-input {
@@ -52,6 +52,7 @@
       .login-button{
         width: 80px;
         margin-left: 90px;
+        margin-top: 5px;
       }
       .toRegister {
         position: absolute;

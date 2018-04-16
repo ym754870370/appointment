@@ -3,9 +3,9 @@
       <ul class="header-ul">
         <li v-bind:class="[focusTitle == 1 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(1)">热门</li>
         <li v-bind:class="[focusTitle == 2 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(2)">关注</li>
-        <li v-bind:class="[focusTitle == 3 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(3)">附近</li>
+        <li v-bind:class="[focusTitle == 3 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(3)">我的</li>
       </ul>
-      <div class="album"></div>
+      <div class="album" @click="toRelease()"></div>
     </div>
 </template>
 
@@ -76,6 +76,9 @@
         methods: {
           changeTitle(value) {
             this.focusTitle = value;
+          },
+          toRelease() {
+            this.$router.push('/Release');
           }
         }
     };

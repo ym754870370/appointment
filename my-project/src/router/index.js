@@ -7,6 +7,9 @@ import Page from '@/views/Page'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Index from '@/views/Index'
+import Release from '@/views/Release'
+import EditUserInfo from '@/views/EditUserInfo'
+import ModifyPassword from '@/views/ModifyPassword'
 
 Vue.use(Router)
 
@@ -46,6 +49,21 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index
+    },
+    {
+      path: '/Release',
+      name: 'Release',
+      component: Release
+    },
+    {
+      path: '/EditUserInfo',
+      name: 'EditUserInfo',
+      component: EditUserInfo
+    },
+    {
+      path: '/ModifyPassword',
+      name: 'ModifyPassword',
+      component: ModifyPassword
     }
   ]
 })

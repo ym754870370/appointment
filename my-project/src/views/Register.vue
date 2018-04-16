@@ -2,17 +2,17 @@
   <div class="register">
     <div class="login-box">
       <h1>帐号注册</h1>
-      <el-form :model="userInfo"  :rules="userInfoRules" ref="userInfo"  label-width="85px" size="medium" class="userInfo">
+      <el-form :model="registerInfo"  :rules="registerInfoRules" ref="registerInfo"  label-width="92px" size="medium" class="registerInfo">
         <el-form-item label="帐号：" prop="accounts">
-          <el-input v-model="userInfo.accounts" placeholder="请填写帐号" class="login-input"></el-input>
+          <el-input v-model="registerInfo.accounts" placeholder="请填写帐号" class="login-input"></el-input>
         </el-form-item>
         <el-form-item label="密码：" prop="password">
-          <el-input v-model="userInfo.password" type="password" placeholder="请填写密码" class="login-input"></el-input>
+          <el-input v-model="registerInfo.password" type="password" placeholder="请填写密码" class="login-input"></el-input>
         </el-form-item>
-        <el-form-item label="重复密码：" prop="repeatPassword">
-          <el-input v-model="userInfo.repeatPassword" type="password" placeholder="请重复密码" class="login-input"></el-input>
+        <el-form-item label="重复密码：" prop="checkPassword">
+          <el-input v-model="registerInfo.checkPassword" type="password" placeholder="请重复密码" class="login-input"></el-input>
         </el-form-item>
-        <el-button type="primary" class="login-button" @click="onSubmit">注册</el-button>
+        <el-button type="primary" class="login-button" @click="onSubmit('registerInfo')">注册</el-button>
       </el-form>
       <div class="return" @click="toLogin">
         返回
@@ -46,7 +46,7 @@
         color: #230e06;
         text-align: center;
       }
-      .userInfo{
+      .registerInfo{
         margin: 20px 20px 0 20px;
       }
       .login-input {
@@ -55,6 +55,7 @@
       .login-button{
         width: 80px;
         margin-left: 90px;
+        margin-top: 5px;
       }
       .return {
         position: absolute;
@@ -80,24 +81,36 @@
             if (value === '') {
               callback(new Error('请输入密码'));
             } else {
-              if (this.ruleForm2.checkPass !== '') {
-                this.$refs.ruleForm2.validateField('checkPass');
+              if (this.registerInfo.checkPassword !== '') {
+                this.$refs.registerInfo.validateField('checkPassword');
               }
               callback();
             }
           };
+          let validatePass2 = (rule, value, callback) => {
+            if (value === '') {
+              callback(new Error('请再次输入密码'));
+            } else if (value !== this.registerInfo.password) {
+              callback(new Error('两次输入密码不一致!'));
+            } else {
+              callback();
+            }
+          };
           return {
-            userInfo: {
+            registerInfo: {
               accounts: "",
               password: "",
-              repeatPassword: ""
+              checkPassword: ""
             },
-            userInfoRules: {
+            registerInfoRules: {
               accounts: [
                 { required: true, message: '请输入帐号', trigger: 'blur' }
               ],
               password: [
-                { validator: validatePass, trigger: 'blur' }
+                {required: true, validator: validatePass, trigger: 'blur' }
+              ],
+              checkPassword: [
+                {required: true, validator: validatePass2, trigger: 'blur' }
               ],
             }
           };
@@ -108,8 +121,15 @@
         beforeMount() {
         },
         methods: {
-          onSubmit: function() {
-            this.$router.push('/Login');
+          onSubmit: function(registerInfo) {
+            this.$refs[registerInfo].validate((valid) => {
+              if (valid) {
+                this.$router.push('/Login');
+              } else {
+                console.log('error submit!!');
+                return false;
+              }
+            });
           },
           toLogin: function() {
             this.$router.push('/Login');
