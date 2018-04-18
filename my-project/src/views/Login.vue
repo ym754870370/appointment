@@ -96,9 +96,21 @@
         },
         methods: {
           onSubmit: function(userInfo) {
+            let that = this;
             this.$refs[userInfo].validate((valid) => {
               if (valid) {
-                this.$router.push('/ShowFoodInfos');
+                // this.$router.push('/ShowFoodInfos');
+
+                this.$http.post('/login', {
+                  userInfo: that.userInfo
+                })
+                .then(function (response) {
+                  console.log('response: ', response);
+                  that.$router.push('/ShowFoodInfos');
+                })
+                .catch(function (error) {
+                  console.log('error: ', error);
+                });
               } else {
                 console.log('error submit!!');
                 return false;

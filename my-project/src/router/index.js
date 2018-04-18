@@ -13,6 +13,7 @@ import ModifyPassword from '@/views/ModifyPassword'
 
 Vue.use(Router)
 
+
 export default new Router({
   routes: [
     {
