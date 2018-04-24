@@ -1,9 +1,9 @@
 <template>
     <div class="header">
       <ul class="header-ul">
-        <li v-bind:class="[focusTitle == 1 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(1)">热门</li>
-        <li v-bind:class="[focusTitle == 2 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(2)">关注</li>
-        <li v-bind:class="[focusTitle == 3 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(3)">我的</li>
+        <li v-bind:class="[focusTitle == 1 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(1)">我的美食记忆</li>
+        <!-- <li v-bind:class="[focusTitle == 2 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(2)">关注</li>
+        <li v-bind:class="[focusTitle == 3 ? 'header-ul-li-focus' : '', 'header-ul-li']" @click="changeTitle(3)">我的</li> -->
       </ul>
       <div class="album" @click="toRelease()"></div>
     </div>
@@ -21,7 +21,7 @@
       margin: 0 auto;
       height: 40px;
       &-li {
-        width: 60px;
+        width: 180px;
         height: 25px;
         margin-top: 7.5px;
         line-height: 25px;
@@ -29,7 +29,7 @@
         font-size: 14px;
         color: #fff;
         float: left;
-        margin-left: calc(~"(100% - 180px) / 4");
+        margin-left: calc(~"(100% - 180px) / 2");
         position: relative;
       }
       &-li-focus {
@@ -38,9 +38,9 @@
           bottom: 0px;
           content: " ";
           display: block;
-          width: 14px;
+          width: 60px;
           height: 1px;
-          margin-left: 23px;
+          margin-left: 60px;
           background-color: #fff;
         }
       }

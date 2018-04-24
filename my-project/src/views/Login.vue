@@ -101,9 +101,7 @@
               if (valid) {
                 // this.$router.push('/ShowFoodInfos');
 
-                this.$http.post('/login', {
-                  userInfo: that.userInfo
-                })
+                this.$http.post('/login', that.userInfo)
                 .then(function (response) {
                   console.log('response: ', response);
                   that.$router.push('/ShowFoodInfos');

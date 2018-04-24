@@ -2,11 +2,11 @@
     <div class="footter">
       <ul class="footter-ul">
         <li class="footter-ul-li" @click="changeRouter(1)">
-          <span class="footter-ul-li-span">美食show</span>
+          <span class="footter-ul-li-span">美食记忆</span>
         </li>
-        <li class="footter-ul-li" @click="changeRouter(2)">
-          <span class="footter-ul-li-span">搭伙饭</span>
-        </li>
+        <!-- <li class="footter-ul-li" @click="changeRouter(2)">
+          <span class="footter-ul-li-span"></span>
+        </li> -->
         <li class="footter-ul-li" @click="changeRouter(3)">
           <span class="footter-ul-li-span">个人信息</span>
         </li>
@@ -27,7 +27,7 @@
         width: 60px;
         text-align: center;
         float: left;
-        margin-left: calc(~"(100% - 180px) / 4");
+        margin-left: calc(~"(100% - 120px) / 3");
         .img {
           display: block;
           margin-top: 5px;
@@ -53,21 +53,21 @@
           background: url(./imgs/food1.png) no-repeat;
           background-size: 100% 100%;
         }
+        // &:nth-child(2) &-span:before{
+        //   content: " ";
+        //   display: block;
+        //   width: 35px;
+        //   height: 35px;
+        //   position: absolute;
+        //   top: -29px;
+        //   left: 15px;
+        //   background: url(./imgs/yuefan1.png) no-repeat;
+        //   background-size: 100% 100%;
+        // }
+        // &:nth-child(2) &-span{
+        //   margin-top: 29px;
+        // }
         &:nth-child(2) &-span:before{
-          content: " ";
-          display: block;
-          width: 35px;
-          height: 35px;
-          position: absolute;
-          top: -29px;
-          left: 15px;
-          background: url(./imgs/yuefan1.png) no-repeat;
-          background-size: 100% 100%;
-        }
-        &:nth-child(2) &-span{
-          margin-top: 29px;
-        }
-        &:nth-child(3) &-span:before{
           content: " ";
           display: block;
           width: 25px;
@@ -78,7 +78,7 @@
           background: url(./imgs/userInfo1.png) no-repeat;
           background-size: 100% 100%;
         }
-        &:nth-child(3) &-span{
+        &:nth-child(2) &-span{
           margin-top: 29px;
         }
       }

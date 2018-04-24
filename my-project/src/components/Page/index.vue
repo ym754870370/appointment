@@ -1,9 +1,10 @@
 <template>
   <div class="page-content">
     <div class="user-info">
-      <img class="user-info-head" src="./../showFoodInfo/imgs/hamburger.png" alt="">
-      <span class="user-info-name">杨明好帅呀！</span>
-      <span class="user-info-fabulous"><i class="el-icon-star-on"></i><span class="user-info-fabulous-num">200</span></span>
+      <!-- <img class="user-info-head" src="./../showFoodInfo/imgs/hamburger.png" alt="">
+      <span class="user-info-name">杨明好帅呀！</span> -->
+      <h2>这是标题</h2>
+      <!-- <span class="user-info-fabulous"><i class="el-icon-star-on"></i><span class="user-info-fabulous-num">200</span></span> -->
     </div>
     <div class="info-show">
       <img class="info-show-img" src="./../showFoodInfo/imgs/hamburger.png" alt="">
@@ -22,6 +23,11 @@
       width: 100%;
       background-color: #fff;
       padding-bottom: 5px;
+      h2 {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 10px;
+      }
       &-head {
         width: 30px;
         height: 30px;

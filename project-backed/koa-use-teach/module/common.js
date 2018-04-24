@@ -12,7 +12,7 @@ exports.getPostData = function(ctx) {
 
       })
 
-      ctx.req.on('data',function(chunk) {
+      ctx.req.on('end',function(chunk) {
 
         resolve(str);
 

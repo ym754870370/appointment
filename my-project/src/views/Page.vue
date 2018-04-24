@@ -7,7 +7,7 @@
     <div class="content">
       <page-content></page-content>
     </div>
-    <comment></comment>
+    <!-- <comment></comment> -->
   </div>
 </template>
 

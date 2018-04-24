@@ -122,9 +122,20 @@
         },
         methods: {
           onSubmit: function(registerInfo) {
-            this.$refs[registerInfo].validate((valid) => {
+            let that = this;
+            that.$refs[registerInfo].validate((valid) => {
               if (valid) {
-                this.$router.push('/Login');
+                that.$http.post('/registeredAccount', {
+                  accounts: that.registerInfo.accounts,
+                  password: that.registerInfo.password
+                })
+                .then(function (response) {
+                  console.log('response: ', response);
+                  that.$router.push('/Login');
+                })
+                .catch(function (error) {
+                  console.log('error: ', error);
+                });
               } else {
                 console.log('error submit!!');
                 return false;
