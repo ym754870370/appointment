@@ -4,6 +4,31 @@ const router = require('koa-router')();//引入后直接实例话
 const DB = require('./module/db.js');
 const common = require('./module/common.js');
 
+
+const multer = require('koa-multer');//加载koa-multer模块
+//文件上传
+//配置
+var storage = multer.diskStorage({
+  //文件保存路径
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/')
+  },
+  //修改文件名称
+  filename: function (req, file, cb) {
+    var fileFormat = (file.originalname).split(".");
+    cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
+  }
+})
+//加载配置
+var upload = multer({ storage: storage });
+//路由
+router.post('/upload', upload.single('file'), async (ctx, next) => {
+  ctx.body = {
+    filename: ctx.req.file.filename//返回文件名
+  }
+})
+
+
 //错误处理中间件
 app.use(async(ctx, next)=> {
   await next();//会去执行下面的匹配路由操作，路由执行完毕后再执行下面的if判断
@@ -26,22 +51,117 @@ router.get('/news', async(ctx) => {
 })
 
 
+router.get('/release', async(ctx) => {
+  let data = ctx.query.data;
+  await DB.insert('article', JSON.parse(decodeURI(data)));
+  ctx.body = {
+    code: 200,
+  };
+})
+
+router.get('/getArticleFoodList', async(ctx) => {
+  let data = ctx.query.data;
+  let result = await DB.find('article', JSON.parse(data));
+  ctx.body = {
+    code: 200,
+    data: result
+  };
+})
+
+router.get('/deleteAricle', async(ctx) => {
+  let data = ctx.query.data;
+  let string = data.split(",");
+  let info = JSON.parse('{' + string[2] + ',' + string[3] + '}');
+
+  let result = await DB.remove('article', info);
+
+  if(result.result.n == 0) {
+    ctx.body = {
+      code: 404,
+    };
+  } else {
+    ctx.body = {
+      code: 200,
+      data: result
+    };
+  }
+})
+
+
 //接收post提交的数据
 router.post('/registeredAccount', async(ctx) => {
   let data = await common.getPostData(ctx);
-  await DB.insert('user', JSON.parse(data));
-  ctx.body = "注册帐号"
+  let string = data.split(",");
+  let accounts = JSON.parse(string[0] + '}');
+  let result = await DB.find('user', accounts);
+  if(result.length == 0) {
+    await DB.insert('user', JSON.parse(data));
+    ctx.body = {
+      code: 200,
+    };
+  } else {
+    ctx.body = {
+      code: 404,
+    };
+  }
+
+
 })
 
 
 router.post('/login', async (ctx) => {
   //原生node.js在koa中获取表单提交的数据
   let data = await common.getPostData(ctx);
-  console.log(data);
-  data = JSON.stringify(data);
-  ctx.body = {
-    code: 200,
-  };
+  let string = data.split(",");
+  let accounts = JSON.parse(string[0] + '}');
+  let result = await DB.find('user', JSON.parse(data));
+  if(result.length == 0) {
+    ctx.body = {
+      code: 404,
+    };
+  } else {
+    ctx.body = {
+      code: 200,
+      data: result
+    };
+  }
+})
+
+router.post('/ModifyPassword', async (ctx) => {
+  //原生node.js在koa中获取表单提交的数据
+  let data = await common.getPostData(ctx);
+  let string = data.split(",");
+  let accounts = JSON.parse(string[0] + '}');
+  let password = JSON.parse('{' + string[1]);
+  console.log(accounts, password);
+  let result = await DB.update('user', accounts, password);
+  console.log('result: ', result.result.ok);
+  if(result.result.n == 0) {
+    ctx.body = {
+      code: 404,
+    };
+  } else {
+    ctx.body = {
+      code: 200,
+    };
+  }
+})
+
+router.post('/EditUserInfo', async (ctx) => {
+  //原生node.js在koa中获取表单提交的数据
+  let data = await common.getPostData(ctx);
+  let string = data.split(",");
+  let accounts = JSON.parse(string[0] + '}');
+  let result = await DB.update('user', accounts, JSON.parse(data));
+  if(result.result.n == 0) {
+    ctx.body = {
+      code: 404,
+    };
+  } else {
+    ctx.body = {
+      code: 200,
+    };
+  }
 })
 
 //启动路由
@@ -77,4 +197,4 @@ app.use(async (ctx)=> {//  会先执行中间件 app.use 再去执行路由 rout
 
 
 
-app.listen(3000);
+app.listen(3333);

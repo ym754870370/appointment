@@ -9,6 +9,7 @@ exports.getPostData = function(ctx) {
       ctx.req.on('data',function(chunk) {
 
         str += chunk;
+        console.log('chunk: ', chunk);
 
       })
 

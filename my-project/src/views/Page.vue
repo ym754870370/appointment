@@ -21,7 +21,7 @@
     bottom: 0px;
     left: 0px;
     right: 0px;
-    background-color: rgba(0,0,0, 0.03);
+    // background-color: rgba(0,0,0, 0.03);
     .header {
       width: 100%;
       height: 40px;
@@ -46,7 +46,7 @@
     }
     .content {
       margin-top: 40px;
-      margin-bottom: 70px;
+      margin-bottom: 30px;
     }
   }
 </style>

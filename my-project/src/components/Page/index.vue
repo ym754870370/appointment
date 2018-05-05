@@ -1,17 +1,15 @@
 <template>
   <div class="page-content">
     <div class="user-info">
-      <!-- <img class="user-info-head" src="./../showFoodInfo/imgs/hamburger.png" alt="">
-      <span class="user-info-name">杨明好帅呀！</span> -->
-      <h2>这是标题</h2>
-      <!-- <span class="user-info-fabulous"><i class="el-icon-star-on"></i><span class="user-info-fabulous-num">200</span></span> -->
+      <img class="user-info-head" :src="photoUrl" alt="">
+      <span class="user-info-name">{{userName || "未命名"}}</span>
+      <span class="user-info-fabulous" @click="deleteActicle()"><i class="el-icon-delete"></i><span>删除</span></span>
+      <h2>{{this.article.title}}</h2>
     </div>
     <div class="info-show">
-      <img class="info-show-img" src="./../showFoodInfo/imgs/hamburger.png" alt="">
-      <img class="info-show-img" src="./../showFoodInfo/imgs/hamburger.png" alt="">
-      <img class="info-show-img" src="./../showFoodInfo/imgs/hamburger.png" alt="">
-      <p class="info-show-word">这事这片的简介哦！这事这片的简介哦！这事这片的简介哦！这事这片的简介哦！这事这片的简介哦！这事这片的简介哦！sdasdassadasdasdasdasdasdasdasdasdasdasdafsfwferqewqeqwdasdaasdasdasdasdasdasdasdasfdsfs</p>
-      <p class="info-show-date">2018.01.01 08:24</p>
+      <img class="info-show-img" :src="item.url" alt="" v-for="(item, index) in article.photoUrls">
+      <p class="info-show-word">{{this.article.content}}</p>
+      <p class="info-show-date">{{this.article.date}}</p>
     </div>
 
   </div>
@@ -25,7 +23,7 @@
       padding-bottom: 5px;
       h2 {
         text-align: center;
-        margin-top: 50px;
+        margin-top: 10px;
         margin-bottom: 10px;
       }
       &-head {
@@ -46,7 +44,7 @@
         margin-top: 18px;
         margin-right: 20px;
         float: right;
-        .el-icon-star-on {
+        .el-icon-delete {
           margin-right: 3px;
         }
       }
@@ -55,9 +53,8 @@
       width: 100%;
       background-color: #fff;
       &-img {
-        width: 100%;
+        width: 90%;
         margin: 0 auto;
-        height: 100vw;
         display: block;
         margin-bottom: 15px;
       }
@@ -71,8 +68,8 @@
         word-break:break-all;
       }
       &-date {
-        margin-right: 10px;
-        margin-top: 20px;
+        margin-right: 20px;
+        margin-top: 30px;
         text-align: right;
         color: #8a8a8a;
       }
@@ -88,11 +85,42 @@
             };
         },
         computed: {
-
+          article() {
+            return this.$store.state.page.article;
+          },
+          photoUrl() {
+            return this.$store.state.userInfo.photoUrl;
+          },
+          userName() {
+            return this.$store.state.userInfo.userName;
+          },
         },
         beforeMount() {
+
         },
         methods: {
+          deleteActicle() {
+            let that = this;
+            that.$http.get('/deleteAricle', {
+              params: {
+                data: that.article,
+              }
+            })
+            .then(function (response) {
+              if(response.data.code == 200) {
+                that.$store.dispatch('article/getArticleFoodList', {
+                  accounts: that.$store.state.userInfo.accounts,
+                  type: "1"
+                });
+                that.$router.push('/ShowFoodInfos');
+              } else {
+                console.log('response: ', response);
+              }
+            })
+            .catch(function (error) {
+              console.log('error: ', error);
+            });
+          }
         }
     };
 </script>

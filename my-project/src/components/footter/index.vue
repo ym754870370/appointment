@@ -2,7 +2,7 @@
     <div class="footter">
       <ul class="footter-ul">
         <li class="footter-ul-li" @click="changeRouter(1)">
-          <span class="footter-ul-li-span">美食记忆</span>
+          <span class="footter-ul-li-span">记忆碎片</span>
         </li>
         <!-- <li class="footter-ul-li" @click="changeRouter(2)">
           <span class="footter-ul-li-span"></span>
@@ -50,7 +50,7 @@
           position: absolute;
           top: -25px;
           left: 15px;
-          background: url(./imgs/food1.png) no-repeat;
+          background: url(./imgs/album1.png) no-repeat;
           background-size: 100% 100%;
         }
         // &:nth-child(2) &-span:before{
@@ -102,8 +102,13 @@
         },
         methods: {
           changeRouter(key) {
+            let that = this;
             switch (key) {
               case 1:
+                that.$store.dispatch('article/getArticleFoodList', {
+                  accounts: that.$store.state.userInfo.accounts,
+                  type: that.$store.state.article.focusTitle,
+                });
                 this.$router.push('/ShowFoodInfos');
                 break;
               case 2:

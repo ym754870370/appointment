@@ -46,7 +46,7 @@ class Db {
           if(err) {
             reject(err);
           } else {
-            resolve(result);
+            resolve(docs);
           }
         })
       })

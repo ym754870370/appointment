@@ -1,16 +1,23 @@
 <template>
   <div class="user-info-content" >
     <div class="detail-info" @click="edit()">
-      <img class="detail-info-img" src="./../showFoodInfo/imgs/hamburger.png" alt="user-header-img" draggable="true" @dragstart="dragStart($event)" @dragend="dragEnd($event, mark)">
+      <div class="detail-info-NoneImg" v-if="!photoUrl">暂无图片</div>
+      <img v-else class="detail-info-img" :src="photoUrl" alt="user-header-img" draggable="true" @dragstart="dragStart($event)" @dragend="dragEnd($event, mark)">
       <div class="detail-info-user">
-        <h2 class="detail-info-user-name">安静 倾听 感悟 走向巅峰</h2>
-        <p class="detail-info-user-account">帐号：wawa754870370</p>
+        <h2 class="detail-info-user-name">{{userName || "未命名"}}</h2>
+        <p class="detail-info-user-account">帐号：{{accounts}}</p>
       </div>
     </div>
     <div class="user-info-content-modifyPassword" @click="ModifyPassword()">
       <p class="user-info-content-modifyPassword-p">
         <img src="./imgs/edit-password.png" alt="" class="user-info-content-modifyPassword-p-icon">
         修改密码
+      </p>
+    </div>
+    <div class="user-info-content-modifyPassword" @click="exitAccount()">
+      <p class="user-info-content-modifyPassword-p">
+        <img src="./imgs/exit.png" alt="" class="user-info-content-modifyPassword-p-icon">
+        退出登录
       </p>
     </div>
   </div>
@@ -30,6 +37,18 @@
         margin-left: 20px;
         border-radius: 5px;
         float: left;
+      }
+      &-NoneImg {
+        width: 75px;
+        height: 75px;
+        margin-top: 12.5px;
+        margin-left: 20px;
+        border-radius: 5px;
+        float: left;
+        background-color: rgba(0,0,0, .1);
+        color: rgb(130, 130, 130);
+        line-height: 75px;
+        text-align: center;
       }
       &-user {
         width: calc(~"100% - 110px");
@@ -88,7 +107,15 @@
       };
     },
     computed: {
-
+      accounts() {
+        return this.$store.state.userInfo.accounts;
+      },
+      userName() {
+        return this.$store.state.userInfo.userName;
+      },
+      photoUrl() {
+        return this.$store.state.userInfo.photoUrl;
+      }
     },
     beforeMount() {
     },
@@ -101,6 +128,9 @@
       },
       ModifyPassword() {
         this.$router.push('/ModifyPassword');
+      },
+      exitAccount() {
+        this.$router.push('/login');
       }
 
     }

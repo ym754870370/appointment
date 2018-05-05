@@ -1,5 +1,5 @@
 <template>
-  <div class="ModifyPassword">
+  <div class="EditUserInfo">
     <div class="modifyPassword-box">
       <h1>编辑个人信息</h1>
       <el-form :model="modifyPassword"  :rules="modifyPasswordRules" ref="modifyPassword"  label-width="85px" size="medium" class="modifyPassword">
@@ -8,20 +8,16 @@
         </el-form-item>
         <el-form-item label="性别：" prop="gender">
           <el-select v-model="modifyPassword.gender" placeholder="请填写性别信息" class="modifyPassword-input">
-            <el-option label="男" value="man"></el-option>
-            <el-option label="女" value="woman"></el-option>
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="头像：">
-          <el-upload
-            class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+        <el-form-item label="头像名称：">
+          <el-input v-model="modifyPassword.photoUrl" placeholder="请填写文件名" class="modifyPassword-input"></el-input>
+        </el-form-item>
+        <el-form-item label="头像展示：">
+          <el-button type="primary" v-show="!showPhoto" @click="changeShowPhoto()">展示</el-button>
+          <img :src="modifyPassword.photoUrl" alt="" class="modifyPassword-photo" v-show="showPhoto">
         </el-form-item>
         <el-button type="primary" class="modifyPassword-button" @click="onSubmit('modifyPassword')">保存</el-button>
         <div class="toRegister" @click="toUserInfo">
@@ -34,7 +30,7 @@
 
 
 <style lang="less">
-  .ModifyPassword {
+  .EditUserInfo {
     background: url(./imges/home-page.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -66,7 +62,13 @@
       .modifyPassword-button{
         width: 80px;
         margin-left: 90px;
-        margin-top: 5px;
+        position: absolute;
+        bottom: 10px;
+      }
+      .modifyPassword-photo{
+        width: 100px;
+        height: 100px;
+        display: block;
       }
       .toRegister {
         position: absolute;
@@ -77,29 +79,6 @@
         bottom: 10px;
         right: 5px;
       }
-    }
-    .avatar-uploader .el-upload {
-      border: 1px dashed #d9d9d9;
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .avatar-uploader .el-upload:hover {
-      border-color: #409EFF;
-    }
-    .avatar-uploader-icon {
-      font-size: 28px;
-      color: #8c939d;
-      width: 155px;
-      height: 155px;
-      line-height: 155px;
-      text-align: center;
-    }
-    .avatar {
-      width: 178px;
-      height: 178px;
-      display: block;
     }
   }
 
@@ -112,10 +91,11 @@
         },
         data() {
             return {
+              showPhoto: false,
               modifyPassword: {
                 name: "",
                 gender: "",
-                password: ""
+                photoUrl: "",
               },
               modifyPasswordRules: {
                 name: [
@@ -124,45 +104,64 @@
                 gender: [
                   { required: true, message: '请输入性别信息', trigger: 'blur' }
                 ],
-                password: [
-                  { required: true, message: '请正确输入密码', trigger: 'blur' }
+                photoUrl: [
+                  { required: true, message: '请正确输入URL', trigger: 'blur' }
                 ],
               }
             };
         },
         computed: {
-
         },
         beforeMount() {
+          // this.modifyPassword = {
+          //   name: "",
+          //   gender: "",
+          //   photoUrl: "",
+          // }
         },
         methods: {
-          onSubmit: function(modifyPassword) {
-            this.$refs[modifyPassword].validate((valid) => {
+          onSubmit: function(EditUserInfo) {
+            let data = {
+              accounts: this.$store.state.userInfo.accounts,
+              userName: this.modifyPassword.name,
+              sex: this.modifyPassword.gender,
+              photoUrl: this.modifyPassword.photoUrl
+            }
+            let that = this;
+            this.$refs[EditUserInfo].validate((valid) => {
               if (valid) {
-                this.$router.push('/UserInfo');
+                // this.$router.push('/UserInfo');
+                that.$http.post('/EditUserInfo', data)
+                  .then(function (response) {
+                    if(response.data.code == 200) {
+                      console.log("response.data: ", response.data);
+                      that.$store.commit('userInfo/setAccounts',response.data.accounts.accounts);
+                      that.$router.push('/ShowFoodInfos');
+                    } else {
+                      console.log('response: ', response);
+                      that.$message.error('请正确输入帐号密码！');
+                    }
+                  })
+                  .catch(function (error) {
+                    console.log('error: ', error);
+                });
               } else {
                 console.log('error submit!!');
                 return false;
               }
             });
           },
-          toUserInfo: function() {
+          changeShowPhoto() {
+            this.showPhoto = true;
+            console.log("this.showPhoto: ", this.showPhoto);
+          },
+          toUserInfo() {
             this.$router.push('/UserInfo');
           },
-          handleAvatarSuccess(res, file) {
-            this.imageUrl = URL.createObjectURL(file.raw);
-          },
-          beforeAvatarUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-
-            if (!isJPG) {
-              this.$message.error('上传头像图片只能是 JPG 格式!');
-            }
-            if (!isLt2M) {
-              this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isJPG && isLt2M;
+        },
+        watch: {
+          "modifyPassword.photoUrl": function() {
+              this.showPhoto = false;
           }
         }
     };

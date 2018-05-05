@@ -2,8 +2,9 @@
   <div class="showFoodInfos">
     <header-nav />
     <div class="content" >
-      <show-food-info v-for="(item, index) in lists" class="showFoodInfo" :foodInfo="item" :key="index" />
-      <a href="#"class="get-more">加载更多...</a>
+      <div class="noContent" v-if="articleFoodList.length == 0">暂无内容</div>
+      <show-food-info v-else v-for="(item, index) in articleFoodList" class="showFoodInfo" :foodInfo="item" :index="index" :key="item._id" />
+      <!-- <a href="#"class="get-more">加载更多...</a> -->
     </div>
     <footter-nav />
   </div>
@@ -18,6 +19,11 @@
     .content {
       margin-top: 40px;
       margin-bottom: 65px;
+      .noContent {
+        text-align: center;
+        line-height: 50vh;
+        font-size: 15px;
+      }
       .showFoodInfo {
         float: left;
         margin-top: 10px;
@@ -63,62 +69,13 @@
         },
         data() {
             return {
-              lists: [
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明sadasdasdasdadasd",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明帅气的杨明帅气的杨明帅气的杨明帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-                {
-                  title: "帅气的杨明！",
-                  userName: "杨明",
-                  time: "2017.09.11"
-                },
-              ]
+
             };
         },
         computed: {
-
+          articleFoodList() {
+            return this.$store.state.article.articleFoodList;
+          }
         },
         beforeMount() {
         },

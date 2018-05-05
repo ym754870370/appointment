@@ -3,6 +3,9 @@
     <div class="login-box">
       <h1>修改密码</h1>
       <el-form :model="registerInfo"  :rules="registerInfoRules" ref="registerInfo"  label-width="92px" size="medium" class="registerInfo">
+        <el-form-item label="帐   号：" prop="accounts">
+          <el-input v-model="registerInfo.accounts" placeholder="请填写帐号" class="login-input"></el-input>
+        </el-form-item>
         <el-form-item label="修改密码：" prop="password">
           <el-input v-model="registerInfo.password" type="password" placeholder="请填写密码" class="login-input"></el-input>
         </el-form-item>
@@ -31,10 +34,10 @@
     right: 0px;
     .login-box {
       width: 300px;
-      height: 250px;
+      height: 310px;
       background-color: #fff;
       position: absolute;
-      top: calc(~"(100vh - 300px) / 2");
+      top: calc(~"(100vh - 310px) / 2");
       left: calc(~"(100vw - 300px) / 2");
       border-radius: 5px;
       h1 {
@@ -95,10 +98,14 @@
           };
           return {
             registerInfo: {
+              accounts: "",
               password: "",
               checkPassword: ""
             },
             registerInfoRules: {
+              accounts: [
+                { required: true, message: '请输入帐号', trigger: 'blur' }
+              ],
               password: [
                 {required: true, validator: validatePass, trigger: 'blur' }
               ],
@@ -115,9 +122,26 @@
         },
         methods: {
           onSubmit: function(registerInfo) {
+            let that = this;
             this.$refs[registerInfo].validate((valid) => {
               if (valid) {
-                this.$router.push('/Login');
+                // this.$router.push('/Login');
+                let data = {
+                  accounts: that.registerInfo.accounts,
+                  password: that.registerInfo.password
+                }
+                that.$http.post('/ModifyPassword', data)
+                  .then(function (response) {
+                    if(response.data.code == 200) {
+                      that.$router.push('/Login');
+                    } else {
+                      console.log('response: ', response);
+                      that.$message.error('请正确输入帐号密码！');
+                    }
+                  })
+                  .catch(function (error) {
+                    console.log('error: ', error);
+                });
               } else {
                 console.log('error submit!!');
                 return false;

@@ -130,8 +130,11 @@
                   password: that.registerInfo.password
                 })
                 .then(function (response) {
-                  console.log('response: ', response);
-                  that.$router.push('/Login');
+                  if(response.data.code == 200 ) {
+                    that.$router.push('/Login');
+                  } else {
+                    that.$message.error('用户名已重复！');
+                  }
                 })
                 .catch(function (error) {
                   console.log('error: ', error);

@@ -99,15 +99,23 @@
             let that = this;
             this.$refs[userInfo].validate((valid) => {
               if (valid) {
-                // this.$router.push('/ShowFoodInfos');
-
-                this.$http.post('/login', that.userInfo)
-                .then(function (response) {
-                  console.log('response: ', response);
-                  that.$router.push('/ShowFoodInfos');
-                })
-                .catch(function (error) {
-                  console.log('error: ', error);
+                that.$http.post('/login', that.userInfo)
+                  .then(function (response) {
+                    if(response.data.code == 200) {
+                      console.log("response.data: ", response.data);
+                      that.$store.commit('userInfo/setUserInfo',response.data.data[0]);
+                      that.$store.dispatch('article/getArticleFoodList', {
+                        accounts: that.$store.state.userInfo.accounts,
+                        type: "1"
+                      });
+                      that.$router.push('/ShowFoodInfos');
+                    } else {
+                      console.log('response: ', response);
+                      that.$message.error('请正确输入帐号密码！');
+                    }
+                  })
+                  .catch(function (error) {
+                    console.log('error: ', error);
                 });
               } else {
                 console.log('error submit!!');

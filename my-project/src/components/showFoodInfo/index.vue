@@ -1,14 +1,14 @@
 <template>
   <div class="showFoodInfo" @click="changeRouter()">
     <el-card :body-style="{ padding: '0px' }">
-      <img src="./imgs/hamburger.png" class="image">
+      <img :src="this.foodInfo.photoUrls[0].url" class="image">
       <div class="user-info">
         <span class="title">{{this.foodInfo.title}}</span>
         <div class="bottom clearfix">
           <span class="button">
-            <img src="./imgs/hamburger.png" class="user-img">{{this.foodInfo.userName}}
+            <img :src="photoUrl" class="user-img">{{this.foodInfo.accounts}}
           </span>
-          <time class="time">{{this.foodInfo.time}}</time>
+          <span class="time">{{this.foodInfo.date}}</span>
         </div>
       </div>
     </el-card>
@@ -32,7 +32,8 @@
         text-align: left;
         display: block;
         width: 90%;
-        height: 14px;
+        height: 22px;
+        font-size: 15px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -50,15 +51,17 @@
           overflow: hidden;
           text-overflow: ellipsis;
           .user-img {
-            width: 16px;
-            height: 16px;
-            border-radius: 8px;
-            margin-right: 3px;
+            width: 25px;
+            height: 25px;
+            border-radius: 13px;
+            border: 1px solid rgba(10,10,10, 0.2);
+            margin-right: 5px;
             margin-top: -1px;
           }
         }
         .time {
          font-size: 12px;
+         line-height: 25px;
          float: right;
          color: #999;
         }
@@ -80,19 +83,23 @@
 <script>
     export default {
         name: 'headerNav',
-        props:['foodInfo'],
+        props:['foodInfo', 'index'],
         data() {
             return {
 
             };
         },
         computed: {
-
+          photoUrl() {
+            return this.$store.state.userInfo.photoUrl;
+          }
         },
         beforeMount() {
+
         },
         methods: {
           changeRouter() {
+            this.$store.commit('page/setArticle', this.foodInfo);
             this.$router.push('/Page');
           }
         }
